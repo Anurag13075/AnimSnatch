@@ -194,8 +194,48 @@
     </div>
   </header>
 
+  <!-- Demo Videos Section -->
+  <section id="demos" class="max-w-7xl mx-auto px-6 py-24 border-t border-gray-100">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-saas-black mb-4">See it in action.</h2>
+      <p class="text-lg text-saas-gray font-medium">Watch how easily you can clone complex components and export them directly to CodePen.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <!-- Demo 1 -->
+      <div class="bg-white rounded-2xl shadow-saas-soft border border-gray-200 overflow-hidden flex flex-col">
+        <div class="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+          <span class="text-xs font-medium text-gray-500 ml-2">Extracting Components</span>
+        </div>
+        <div class="relative w-full aspect-[16/10] bg-gray-100">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <source src="videos/demo1.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Demo 2 -->
+      <div class="bg-white rounded-2xl shadow-saas-soft border border-gray-200 overflow-hidden flex flex-col">
+        <div class="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+          <span class="text-xs font-medium text-gray-500 ml-2">CodePen Playground Export</span>
+        </div>
+        <div class="relative w-full aspect-[16/10] bg-gray-100">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <source src="videos/demo2.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Features Grid (True SaaS Bento Box Style) -->
-  <section id="features" class="max-w-7xl mx-auto px-6 py-32 border-t border-gray-100">
+  <section id="features" class="max-w-7xl mx-auto px-6 py-24 border-t border-gray-100">
     <div class="text-center max-w-3xl mx-auto mb-20">
       <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-saas-black mb-6">Built for modern web cloning.</h2>
       <p class="text-xl text-saas-gray font-medium">AnimSnatch doesn't just copy text. It reconstructs the exact CSS Object Model rules applied to any DOM element.</p>
@@ -291,15 +331,36 @@
     </div>
   </section>
 
-  <!-- Clean CTA -->
-  <section id="install" class="max-w-4xl mx-auto px-6 py-32 text-center">
-    <h2 class="text-4xl font-extrabold tracking-tight text-saas-black mb-6">Start snatching today.</h2>
-    <p class="text-xl text-saas-gray font-medium mb-10">Available for Google Chrome via Developer Mode.</p>
-    
-    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-      <a href="AnimSnatch.zip" download class="premium-btn w-full sm:w-auto bg-saas-black text-white font-semibold text-[15px] px-8 py-4 rounded-full flex items-center justify-center gap-2">
-        Download .zip
-      </a>
+  <!-- Clean CTA & Installation -->
+  <section id="install" class="max-w-7xl mx-auto px-6 py-32 border-t border-gray-100">
+    <div class="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto">
+      
+      <!-- Video Left -->
+      <div class="w-full md:w-1/2">
+        <div class="bg-white rounded-2xl shadow-saas-soft border border-gray-200 overflow-hidden flex flex-col">
+          <div class="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Installation Guide</span>
+          </div>
+          <div class="relative w-full aspect-video bg-gray-100">
+            <video controls autoplay loop muted playsinline class="w-full h-full object-cover">
+              <source src="videos/install.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text/CTA Right -->
+      <div class="w-full md:w-1/2 text-left">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-saas-black mb-6">Start snatching today.</h2>
+        <p class="text-xl text-saas-gray font-medium mb-8">Download the extension, enable Developer Mode in Chrome, and load the unpacked folder. It takes less than a minute.</p>
+        
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <a href="AnimSnatch.zip" download class="premium-btn w-full sm:w-auto bg-saas-black text-white font-semibold text-[15px] px-8 py-4 rounded-full flex items-center justify-center gap-2 shadow-lg">
+            Download .zip
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
