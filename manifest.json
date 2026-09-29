@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "AnimSnatch - The Animation Copier",
+  "version": "1.0",
+  "description": "Easily snatch and copy CSS animations and transitions from any website with a single click.",
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "clipboardWrite",
+    "downloads",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content/content.css"],
+      "js": ["content/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

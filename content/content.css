@@ -1,0 +1,114 @@
+/* ==========================================================================
+   AnimSnatch Content Script Styles - Clean / Stripe Aesthetic
+   ========================================================================== */
+
+/* The highlighter outline for hovered elements */
+.animsnatch-highlighted {
+  outline: 2px solid #635bff !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 4px 12px rgba(99, 91, 255, 0.2) !important;
+  cursor: crosshair !important;
+  transition: outline 0.1s ease, box-shadow 0.1s ease !important;
+  position: relative;
+  z-index: 2147483646 !important;
+}
+
+/* Toast Container */
+#animsnatch-toast-container {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 2147483647;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.animsnatch-toast {
+  background: #ffffff;
+  border: 1px solid #e3e8ee;
+  color: #1a1f36;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 320px;
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.animsnatch-toast.show {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.animsnatch-toast-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.animsnatch-toast-icon.success {
+  background: #e3fbee;
+  color: #009b62;
+}
+
+.animsnatch-toast-icon.error {
+  background: #ffeff1;
+  color: #d90429;
+}
+
+.animsnatch-toast-icon.info {
+  background: #eef1ff;
+  color: #635bff;
+}
+
+.animsnatch-toast-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.animsnatch-toast-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  color: #1a1f36;
+  letter-spacing: -0.2px;
+}
+
+.animsnatch-toast-message {
+  font-size: 13px;
+  color: #4f566b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Tooltip that follows cursor */
+#animsnatch-cursor-tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 2147483647;
+  background: #1a1f36;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transform: translate(15px, 15px);
+  display: none;
+  font-family: 'Inter', -apple-system, sans-serif;
+  letter-spacing: -0.1px;
+}
