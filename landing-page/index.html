@@ -21,14 +21,17 @@
             mono: ['"JetBrains Mono"', 'monospace']
           },
           colors: {
-            'saas-black': '#0a0a0b',
+            'saas-black': '#09090b',
             'saas-gray': '#52525b',
             'saas-blue': '#2563eb',
-            'saas-bg': '#fcfcfd'
+            'saas-bg': '#fcfcfd',
+            'bento-bg': '#f4f4f5',
+            'bento-border': '#e4e4e7'
           },
           boxShadow: {
             'saas-soft': '0 4px 40px rgba(0, 0, 0, 0.04)',
-            'saas-glow': '0 0 80px rgba(37, 99, 235, 0.15)'
+            'saas-glow': '0 0 80px rgba(37, 99, 235, 0.15)',
+            'float': '0 20px 40px -10px rgba(0,0,0,0.1)'
           }
         }
       }
@@ -41,7 +44,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Soft, Calendly-style background gradient */
     .hero-glow {
       position: absolute;
       top: 50%;
@@ -60,11 +62,40 @@
     }
 
     .premium-btn {
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .premium-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Bento Box Card Styling */
+    .bento-card {
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
+    .bento-card:hover {
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      border-color: #d4d4d8;
+    }
+    .bento-visual {
+      flex: 1;
+      background: #fafafa;
+      border-bottom: 1px solid #f4f4f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-content {
+      padding: 32px;
     }
   </style>
 </head>
@@ -74,15 +105,12 @@
   <nav class="fixed top-0 w-full z-50 glass-nav">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div class="flex items-center gap-2.5 font-bold text-xl tracking-tight text-saas-black">
-        <!-- Minimal geometric logo -->
         <div class="w-8 h-8 bg-saas-blue text-white rounded-lg flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         AnimSnatch
       </div>
       <div class="flex items-center gap-8">
-        <a href="#features" class="hidden md:block text-[15px] font-medium text-saas-gray hover:text-saas-black transition-colors">Features</a>
-        <a href="#install" class="hidden md:block text-[15px] font-medium text-saas-gray hover:text-saas-black transition-colors">Installation</a>
         <a href="AnimSnatch.zip" download class="text-[15px] font-semibold text-saas-black border border-gray-200 hover:border-gray-300 bg-white px-5 py-2.5 rounded-full transition-all">
           Download .zip
         </a>
@@ -111,89 +139,159 @@
       </div>
     </div>
 
-    <!-- UI Mockup (Calendly Style Soft Container) -->
-    <div class="relative z-10 w-full max-w-5xl mx-auto rounded-[2rem] bg-gradient-to-b from-blue-50/80 to-white border border-white/50 shadow-saas-glow p-4 md:p-8">
-      <div class="w-full bg-white rounded-2xl shadow-saas-soft border border-gray-100 overflow-hidden flex flex-col md:flex-row">
-        <!-- Mock Extension UI -->
-        <div class="w-full md:w-1/3 bg-gray-50 border-r border-gray-100 p-8 flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-saas-blue text-white rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    <!-- UI Mockup (Rich, Realistic, Depth-focused) -->
+    <div class="relative z-10 w-full max-w-5xl mx-auto h-[450px] md:h-[550px] rounded-[2rem] bg-gradient-to-b from-blue-50/50 to-white/10 border border-white/60 shadow-saas-glow flex items-center justify-center overflow-hidden">
+      <!-- Background Abstract Mesh -->
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100 via-transparent to-transparent opacity-60"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-100 via-transparent to-transparent opacity-60"></div>
+
+      <!-- Floating Extension UI Popup (Left) -->
+      <div class="absolute left-1/2 md:left-[30%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] bg-white rounded-2xl shadow-float border border-gray-100 z-20 flex flex-col overflow-hidden transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+          <div class="flex items-center gap-2 font-bold text-[15px]">
+            <div class="w-6 h-6 bg-saas-blue text-white rounded flex items-center justify-center">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            AnimSnatch
           </div>
-          <h3 class="font-bold text-lg mb-2">AnimSnatch</h3>
-          <p class="text-sm text-saas-gray mb-8">Select an extraction mode</p>
-          
-          <div class="w-full bg-white border border-blue-500 rounded-xl p-4 flex items-center gap-3 shadow-sm mb-3">
-            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-saas-blue">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </div>
+        <div class="p-5">
+          <p class="text-xs text-saas-gray font-medium mb-3 uppercase tracking-wider">Extraction Mode</p>
+          <div class="w-full border-2 border-saas-blue bg-blue-50/50 rounded-xl p-3 flex items-center gap-3 mb-2 cursor-pointer relative overflow-hidden">
+            <div class="absolute inset-0 bg-blue-500 opacity-5"></div>
+            <div class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-saas-blue z-10">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 12l10 7.5 10-7.5-10-7.5z"/><path d="M12 12v7.5"/><path d="M2 12l10-7.5"/><path d="M22 12l-10-7.5"/></svg>
             </div>
-            <span class="font-semibold text-[13px] text-saas-blue">CodePen Export</span>
+            <span class="font-bold text-[14px] text-saas-blue z-10">CodePen Export</span>
           </div>
-          <div class="w-full bg-white border border-gray-200 rounded-xl p-4 flex items-center gap-3 mb-3">
-            <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500">
+          <div class="w-full border border-gray-200 hover:border-gray-300 rounded-xl p-3 flex items-center gap-3 cursor-pointer">
+            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
             </div>
-            <span class="font-semibold text-[13px] text-gray-500">React Component</span>
+            <span class="font-semibold text-[14px] text-saas-gray">React Component</span>
           </div>
         </div>
-        
-        <!-- Mock Output (Code) -->
-        <div class="w-full md:w-2/3 p-8 bg-[#0a0a0b] text-left">
-          <div class="flex items-center gap-2 mb-6">
-            <div class="w-3 h-3 rounded-full bg-gray-700"></div>
-            <div class="w-3 h-3 rounded-full bg-gray-700"></div>
-            <div class="w-3 h-3 rounded-full bg-gray-700"></div>
-          </div>
-          <p class="font-mono text-sm leading-loose text-gray-400">
-            <span class="text-blue-400">const</span> extracted <span class="text-blue-400">=</span> {<br>
-            &nbsp;&nbsp;<span class="text-gray-300">html</span>: <span class="text-green-300">"&lt;button class='premium-btn'&gt;Hover Me&lt;/button&gt;"</span>,<br>
-            &nbsp;&nbsp;<span class="text-gray-300">css</span>: <span class="text-green-300">".premium-btn { transform: translateY(-2px); }"</span><br>
-            };<br><br>
-            <span class="text-gray-500">// Automatically POSTing to CodePen API...</span><br>
-            <span class="text-pink-400">Success!</span> Playground opened in new tab.
-          </p>
+      </div>
+
+      <!-- Floating IDE Window (Right) -->
+      <div class="absolute left-1/2 md:left-[60%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] bg-[#0c0c0e] rounded-2xl shadow-float border border-gray-800 z-10 flex flex-col overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
+        <div class="px-4 py-3 bg-[#18181b] border-b border-gray-800 flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-[#ef4444]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#f59e0b]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#22c55e]"></div>
+        </div>
+        <div class="p-6 font-mono text-[13px] leading-loose text-gray-300">
+          <span class="text-pink-400">const</span> <span class="text-blue-300">payload</span> <span class="text-pink-400">=</span> {<br>
+          &nbsp;&nbsp;<span class="text-gray-400">html</span>: <span class="text-green-300">"&lt;div class='hero'&gt;...&lt;/div&gt;"</span>,<br>
+          &nbsp;&nbsp;<span class="text-gray-400">css</span>: <span class="text-green-300">".hero { backdrop-filter: blur(12px); }"</span><br>
+          };<br><br>
+          <span class="text-gray-500">// Sending to CodePen...</span><br>
+          <span class="text-saas-blue">await</span> codepen.<span class="text-blue-300">export</span>(payload);<br>
+          <span class="text-emerald-400 font-bold">✨ Success!</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Features Grid (Ultra clean typography focus) -->
+  <!-- Features Grid (True SaaS Bento Box Style) -->
   <section id="features" class="max-w-7xl mx-auto px-6 py-32 border-t border-gray-100">
     <div class="text-center max-w-3xl mx-auto mb-20">
-      <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-saas-black mb-6">The infrastructure for modern web cloning.</h2>
+      <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-saas-black mb-6">Built for modern web cloning.</h2>
       <p class="text-xl text-saas-gray font-medium">AnimSnatch doesn't just copy text. It reconstructs the exact CSS Object Model rules applied to any DOM element.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-12">
-      <!-- Feature -->
-      <div>
-        <div class="w-14 h-14 rounded-2xl bg-blue-50 text-saas-blue flex items-center justify-center mb-6">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12l10 7.5 10-7.5-10-7.5z"/><path d="M12 12v7.5"/><path d="M2 12l10-7.5"/><path d="M22 12l-10-7.5"/></svg>
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      
+      <!-- Feature 1: Wide Card (CodePen) -->
+      <div class="bento-card md:col-span-2 min-h-[400px]">
+        <div class="bento-visual">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-white"></div>
+          <!-- Visual: CodePen logo fading into a web layout -->
+          <div class="relative w-48 h-32 bg-white rounded-xl shadow-lg border border-gray-100 flex items-center justify-center p-4">
+             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5"><path d="M2 12l10 7.5 10-7.5-10-7.5z"/><path d="M12 12v7.5"/><path d="M2 12l10-7.5"/><path d="M22 12l-10-7.5"/></svg>
+             <div class="absolute -right-12 -bottom-8 w-32 h-24 bg-white rounded-lg shadow-xl border border-gray-100 p-3 opacity-90">
+               <div class="w-full h-2 bg-blue-100 rounded-full mb-2"></div>
+               <div class="w-3/4 h-2 bg-gray-100 rounded-full mb-2"></div>
+               <div class="w-1/2 h-2 bg-gray-100 rounded-full"></div>
+             </div>
+          </div>
         </div>
-        <h3 class="text-xl font-bold text-saas-black mb-3">Live Playgrounds</h3>
-        <p class="text-saas-gray leading-relaxed font-medium">Instantly export any component into a live CodePen editor. We handle packaging the HTML and matching CSS so you can start tweaking immediately.</p>
+        <div class="bento-content">
+          <h3 class="text-2xl font-bold text-saas-black mb-3">Live Playgrounds</h3>
+          <p class="text-saas-gray leading-relaxed font-medium">Instantly export any component into a live CodePen editor. We handle packaging the HTML and matching CSS so you can start tweaking immediately.</p>
+        </div>
       </div>
 
-      <!-- Feature -->
-      <div>
-        <div class="w-14 h-14 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center mb-6">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <!-- Feature 2: Square Card (JSX) -->
+      <div class="bento-card md:col-span-1 min-h-[400px]">
+        <div class="bento-visual">
+           <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-white"></div>
+           <!-- Visual: React Code snippet -->
+           <div class="relative bg-[#0c0c0e] w-[80%] rounded-xl shadow-lg border border-gray-800 p-4 text-[11px] font-mono leading-relaxed text-gray-300">
+             &lt;<span class="text-blue-400">div</span> <span class="text-emerald-400">className</span>=<span class="text-green-300">"ui"</span>&gt;<br>
+             &nbsp;&nbsp;{<span class="text-gray-400">children</span>}<br>
+             &lt;/<span class="text-blue-400">div</span>&gt;
+           </div>
         </div>
-        <h3 class="text-xl font-bold text-saas-black mb-3">Keyframe Extraction</h3>
-        <p class="text-saas-gray leading-relaxed font-medium">Stop guessing bezier curves. AnimSnatch scans the stylesheets to find the exact `@keyframes` and transition timings applied to an element.</p>
+        <div class="bento-content">
+          <h3 class="text-2xl font-bold text-saas-black mb-3">React JSX Ready</h3>
+          <p class="text-saas-gray leading-relaxed font-medium">Automatically formats DOM trees into clean React JSX, converting attributes.</p>
+        </div>
       </div>
 
-      <!-- Feature -->
-      <div>
-        <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      <!-- Feature 3: Square Card (Keyframes) -->
+      <div class="bento-card md:col-span-1 min-h-[400px]">
+        <div class="bento-visual">
+          <div class="absolute inset-0 bg-gradient-to-br from-pink-50 to-white"></div>
+          <!-- Visual: Bezier Curve Graph -->
+          <div class="relative w-32 h-32">
+            <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible">
+              <!-- Grid -->
+              <path d="M0,0 L0,100 L100,100" fill="none" stroke="#e4e4e7" stroke-width="2" />
+              <!-- Curve -->
+              <path d="M0,100 C 40,0 60,100 100,0" fill="none" stroke="#db2777" stroke-width="4" stroke-linecap="round" />
+              <circle cx="40" cy="0" r="4" fill="#db2777" />
+              <circle cx="60" cy="100" r="4" fill="#db2777" />
+              <line x1="0" y1="100" x2="40" y2="0" stroke="#fbcfe8" stroke-width="2" stroke-dasharray="4" />
+              <line x1="100" y1="0" x2="60" y2="100" stroke="#fbcfe8" stroke-width="2" stroke-dasharray="4" />
+            </svg>
+          </div>
         </div>
-        <h3 class="text-xl font-bold text-saas-black mb-3">React JSX Ready</h3>
-        <p class="text-saas-gray leading-relaxed font-medium">Automatically formats DOM trees into clean React JSX, converting attributes like `class` to `className` so you can paste directly into your editor.</p>
+        <div class="bento-content">
+          <h3 class="text-2xl font-bold text-saas-black mb-3">Keyframe Extraction</h3>
+          <p class="text-saas-gray leading-relaxed font-medium">Stop guessing bezier curves. Snatch exact animations from the CSSOM.</p>
+        </div>
       </div>
+
+      <!-- Feature 4: Wide Card (Assets) -->
+      <div class="bento-card md:col-span-2 min-h-[400px]">
+        <div class="bento-visual">
+           <div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-white"></div>
+           <!-- Visual: Asset grid -->
+           <div class="relative flex gap-4">
+             <div class="w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-200 flex items-center justify-center text-gray-400">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+             </div>
+             <div class="w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-200 flex items-center justify-center text-gray-400">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+             </div>
+             <div class="w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-200 flex items-center justify-center text-gray-400">
+               <span class="font-bold text-gray-300 text-xl">SVG</span>
+             </div>
+           </div>
+        </div>
+        <div class="bento-content">
+          <h3 class="text-2xl font-bold text-saas-black mb-3">Hidden Asset Extraction</h3>
+          <p class="text-saas-gray leading-relaxed font-medium">Can't right-click an image? AnimSnatch digs into the computed styles to find background-images, inline SVGs, and hidden image tags, downloading them instantly.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Clean, Calendly-style text CTA -->
+  <!-- Clean CTA -->
   <section id="install" class="max-w-4xl mx-auto px-6 py-32 text-center">
     <h2 class="text-4xl font-extrabold tracking-tight text-saas-black mb-6">Start snatching today.</h2>
     <p class="text-xl text-saas-gray font-medium mb-10">Available for Google Chrome via Developer Mode.</p>
@@ -201,9 +299,6 @@
     <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
       <a href="AnimSnatch.zip" download class="premium-btn w-full sm:w-auto bg-saas-black text-white font-semibold text-[15px] px-8 py-4 rounded-full flex items-center justify-center gap-2">
         Download .zip
-      </a>
-      <a href="#" class="w-full sm:w-auto text-saas-black font-semibold text-[15px] px-8 py-4 rounded-full border border-gray-200 hover:border-gray-300 transition-colors">
-        Read the Docs
       </a>
     </div>
   </section>
