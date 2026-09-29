@@ -1,154 +1,297 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AnimSnatch - Chrome Extension</title>
+  <title>AnimSnatch — Developer Chrome Extension</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: { brand: '#4F46E5' } // Indigo 600
+          fontFamily: { 
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: { 
+            brand: '#4F46E5', // Indigo 600
+            brandDark: '#4338CA'
+          }
         }
       }
     }
   </script>
+  <style>
+    /* Custom scrollbar for code blocks */
+    .code-scroll::-webkit-scrollbar { height: 6px; }
+    .code-scroll::-webkit-scrollbar-track { background: transparent; }
+    .code-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    
+    /* Subtle dot grid pattern */
+    .bg-dot-pattern {
+      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased selection:bg-brand selection:text-white">
 
   <!-- Navigation -->
-  <nav class="w-full bg-white border-b border-gray-200">
-    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2 font-semibold text-lg tracking-tight">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-brand"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+  <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 font-bold text-lg tracking-tight text-gray-900">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-brand"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         AnimSnatch
       </div>
-      <a href="AnimSnatch.zip" download class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-        Download v1.0
-      </a>
+      <div class="flex items-center gap-6">
+        <a href="#how-it-works" class="hidden sm:block text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">How it works</a>
+        <a href="#features" class="hidden sm:block text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Features</a>
+        <a href="AnimSnatch.zip" download class="text-sm font-semibold text-white bg-gray-900 hover:bg-black px-4 py-2 rounded-lg transition-colors">
+          Download .zip
+        </a>
+      </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <header class="max-w-5xl mx-auto px-6 py-24 text-center flex flex-col items-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-8 tracking-wide uppercase">
-      Free Developer Tool
-    </div>
+  <header class="relative w-full overflow-hidden bg-white border-b border-gray-200">
+    <div class="absolute inset-0 bg-dot-pattern opacity-50"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white to-transparent"></div>
     
-    <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6 max-w-3xl leading-[1.1]">
-      Extract animations and components instantly.
-    </h1>
-    
-    <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl leading-relaxed">
-      A lightweight Chrome extension that pulls exact CSS keyframes, complete React components, and raw assets directly from the DOM to your clipboard.
-    </p>
+    <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-32 text-center flex flex-col items-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold mb-8 tracking-wide">
+        v1.0 is now available
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 max-w-4xl leading-[1.05]">
+        Stop guessing CSS.<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-pink-600">Snatch it directly.</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl leading-relaxed">
+        A Chrome extension built for front-end developers. Point at any element on the web and instantly extract its DOM structure, exact matched CSS rules, and keyframe animations.
+      </p>
 
-    <div class="flex flex-col sm:flex-row items-center gap-4">
-      <a href="AnimSnatch.zip" download class="w-full sm:w-auto bg-brand hover:bg-indigo-700 text-white font-semibold text-base px-8 py-3.5 rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download .zip
-      </a>
-      <a href="#installation" class="w-full sm:w-auto text-gray-600 hover:text-gray-900 font-medium text-base px-6 py-3.5 transition-colors">
-        View install guide &darr;
-      </a>
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <a href="AnimSnatch.zip" download class="w-full sm:w-auto bg-brand hover:bg-brandDark text-white font-semibold text-base px-8 py-3.5 rounded-xl shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download AnimSnatch
+        </a>
+        <a href="#installation" class="w-full sm:w-auto bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-semibold text-base px-8 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5 shadow-sm">
+          View Install Guide
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- Features Grid -->
-  <section class="max-w-5xl mx-auto px-6 py-16">
-    <div class="grid md:grid-cols-2 gap-8">
+  <!-- Problem / Solution Section -->
+  <section id="how-it-works" class="max-w-6xl mx-auto px-6 py-24">
+    <div class="flex flex-col md:flex-row gap-16 items-center">
+      <div class="w-full md:w-1/2">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">Digging through DevTools is a waste of time.</h2>
+        <p class="text-gray-500 text-lg leading-relaxed mb-6">
+          When you see a beautifully designed component or a complex cubic-bezier animation on a website, figuring out how it's built manually is painful. You have to inspect the element, track down the exact CSS rules overriding each other, find the keyframes in a separate tab, and rewrite the HTML.
+        </p>
+        <p class="text-gray-500 text-lg leading-relaxed font-medium text-gray-700">
+          AnimSnatch automates this. It deeply clones the DOM node you click, scans the page's stylesheets for the exact CSS rules applying to that node, and packages it perfectly for your clipboard.
+        </p>
+      </div>
       
-      <!-- Feature 1 -->
-      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
-        <div class="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-brand mb-5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <!-- Mock IDE / Code Block Window -->
+      <div class="w-full md:w-1/2">
+        <div class="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-800">
+          <div class="flex items-center px-4 py-3 border-b border-gray-800 bg-gray-900/50">
+            <div class="flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <div class="mx-auto text-xs font-mono text-gray-500">extracted-component.jsx</div>
+          </div>
+          <div class="p-6 overflow-x-auto code-scroll">
+            <pre class="text-sm font-mono text-gray-300 leading-relaxed"><code><span class="text-pink-400">export function</span> <span class="text-blue-400">SnatchedCard</span>() {
+  <span class="text-pink-400">return</span> (
+    <span class="text-gray-400">&lt;</span><span class="text-blue-300">div</span> <span class="text-emerald-300">className</span><span class="text-gray-400">=</span><span class="text-yellow-300">"snatched-element"</span><span class="text-gray-400">&gt;</span>
+      <span class="text-gray-400">&lt;</span><span class="text-blue-300">h3</span> <span class="text-emerald-300">className</span><span class="text-gray-400">=</span><span class="text-yellow-300">"title"</span><span class="text-gray-400">&gt;</span>Beautiful UI<span class="text-gray-400">&lt;/</span><span class="text-blue-300">h3</span><span class="text-gray-400">&gt;</span>
+      <span class="text-gray-400">&lt;</span><span class="text-blue-300">p</span> <span class="text-emerald-300">className</span><span class="text-gray-400">=</span><span class="text-yellow-300">"desc"</span><span class="text-gray-400">&gt;</span>Cloned directly from the DOM.<span class="text-gray-400">&lt;/</span><span class="text-blue-300">p</span><span class="text-gray-400">&gt;</span>
+    <span class="text-gray-400">&lt;/</span><span class="text-blue-300">div</span><span class="text-gray-400">&gt;</span>
+  );
+}
+
+<span class="text-gray-500">/* AnimSnatch Extracted CSS */</span>
+<span class="text-yellow-300">.snatched-element</span> {
+  <span class="text-blue-300">background</span>: <span class="text-orange-300">rgba(255, 255, 255, 0.05)</span>;
+  <span class="text-blue-300">backdrop-filter</span>: <span class="text-orange-300">blur(10px)</span>;
+  <span class="text-blue-300">border</span>: <span class="text-orange-300">1px solid rgba(255,255,255,0.1)</span>;
+  <span class="text-blue-300">animation</span>: <span class="text-orange-300">float 3s ease-in-out infinite</span>;
+}</code></pre>
+          </div>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">React Components</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Copies the entire DOM structure and matches exact CSS rules to generate clean, copy-ready JSX.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: CodePen Feature (Killer Feature Showcase) -->
+  <section class="w-full bg-gray-900 text-white py-24 border-y border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/20 border border-brand/30 text-brand-300 text-xs font-bold uppercase tracking-wider mb-6">
+        Killer Feature
+      </div>
+      <h2 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight">One-Click CodePen Playground</h2>
+      <p class="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mb-16 leading-relaxed">
+        Don't just copy code. With AnimSnatch's Playground mode, click any component on the internet and instantly open a live CodePen editor in a new tab. The HTML and CSS are already hooked up and ready to tweak.
+      </p>
+
+      <!-- CodePen visual mock -->
+      <div class="max-w-4xl mx-auto bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden border border-gray-700 text-left">
+        <div class="flex items-center justify-between px-4 py-3 bg-[#131417] border-b border-gray-800">
+          <div class="flex items-center gap-3">
+            <svg viewBox="0 0 138 26" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-20"><path d="M15 8a7 7 0 100 10m7-8.7L22 22M29 22h13M34 14l-4 8M47 8a7 7 0 100 10m7-8.7L54 22M61 22h13M66 14l-4 8M79 8a7 7 0 100 10m7-8.7L86 22M93 22h13M98 14l-4 8"/></svg>
+            <span class="text-gray-400 text-xs font-semibold px-2 py-1 bg-gray-800 rounded">AnimSnatch Export</span>
+          </div>
+          <div class="flex gap-2">
+            <div class="px-3 py-1 text-xs font-semibold bg-[#47cf73] text-black rounded">Save</div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 h-[300px]">
+          <div class="border-r border-gray-800 p-4 font-mono text-sm code-scroll overflow-y-auto">
+            <div class="text-gray-500 mb-2 text-xs uppercase tracking-wider font-bold">HTML</div>
+            <span class="text-blue-400">&lt;button</span> <span class="text-emerald-400">class=</span><span class="text-yellow-300">"magic-btn"</span><span class="text-blue-400">&gt;</span>Hover Me<span class="text-blue-400">&lt;/button&gt;</span>
+          </div>
+          <div class="p-4 font-mono text-sm bg-[#1e1e1e] code-scroll overflow-y-auto">
+            <div class="text-gray-500 mb-2 text-xs uppercase tracking-wider font-bold">CSS</div>
+            <span class="text-yellow-300">.magic-btn</span> {<br>
+            &nbsp;&nbsp;<span class="text-blue-300">background</span>: <span class="text-orange-300">linear-gradient(90deg, #ff007f, #635bff)</span>;<br>
+            &nbsp;&nbsp;<span class="text-blue-300">border-radius</span>: <span class="text-orange-300">8px</span>;<br>
+            &nbsp;&nbsp;<span class="text-blue-300">padding</span>: <span class="text-orange-300">12px 24px</span>;<br>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Grid (Bento style) -->
+  <section id="features" class="max-w-6xl mx-auto px-6 py-24">
+    <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center tracking-tight">Everything you need to extract UI</h2>
+    
+    <div class="grid md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-brand mb-6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">React Component Formatting</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">Automatically converts standard HTML `class` and `for` attributes into React-compliant `className` and `htmlFor`. Pastes directly into your JSX files.</p>
+        </div>
       </div>
 
-      <!-- Feature 2 -->
-      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
-        <div class="w-10 h-10 rounded-lg bg-pink-50 border border-pink-100 flex items-center justify-center text-pink-600 mb-5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <!-- Card 2 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-pink-600 mb-6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Keyframe Resolution</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">Extracts the exact `@keyframes` rule from the CSS Object Model (CSSOM). No more guessing cubic-bezier easing values or transform origins.</p>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Keyframe Animations</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Extracts raw <code class="bg-gray-100 text-pink-600 px-1 py-0.5 rounded text-xs font-mono">@keyframes</code>, cubic-bezier timing functions, and transform origins seamlessly.</p>
       </div>
 
-      <!-- Feature 3 -->
-      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
-        <div class="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m8 14 4-4 4 4"/></svg>
+      <!-- Card 3 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m8 14 4-4 4 4"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Hidden Asset Extraction</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">Can't right-click an image? AnimSnatch digs into the computed styles to find background-images, inline SVGs, and hidden <code>&lt;img&gt;</code> tags and downloads them directly.</p>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Asset Downloader</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Automatically detects hidden background images, inline SVGs, and triggers instant local downloads.</p>
-      </div>
-
-      <!-- Feature 4: CodePen (Killer Feature) -->
-      <div class="bg-white p-8 rounded-2xl border border-brand shadow-[0_0_15px_rgba(79,70,229,0.1)] relative">
-        <div class="absolute -top-3 -right-3 bg-brand text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-lg">Killer Feature</div>
-        <div class="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-800 mb-5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12l10 7.5 10-7.5-10-7.5z"/><path d="M12 12v7.5"/><path d="M2 12l10-7.5"/><path d="M22 12l-10-7.5"/></svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">CodePen Live Playground</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Instantly export any component and its exact CSS directly into a live CodePen editor in a new tab with one click.</p>
       </div>
 
     </div>
   </section>
 
   <!-- Installation Guide -->
-  <section id="installation" class="w-full bg-white border-t border-gray-200 py-24 mt-8">
+  <section id="installation" class="w-full bg-white border-t border-gray-200 py-24">
     <div class="max-w-3xl mx-auto px-6">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">How to install (Developer Mode)</h2>
+      <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center tracking-tight">Get Started in 60 Seconds</h2>
+      <p class="text-gray-500 text-center mb-12">AnimSnatch is currently distributed as an unpacked extension for developers.</p>
       
-      <div class="space-y-6">
-        <div class="flex gap-4">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 text-gray-900 font-semibold flex items-center justify-center text-sm">1</div>
+      <div class="space-y-8 bg-gray-50 p-8 rounded-2xl border border-gray-200">
+        
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-brand text-white font-bold flex items-center justify-center text-sm shadow-md">1</div>
           <div>
-            <h4 class="text-base font-semibold text-gray-900 mb-1">Download & Extract</h4>
-            <p class="text-gray-500 text-sm">Download the <a href="AnimSnatch.zip" download class="text-brand hover:underline font-medium">AnimSnatch.zip</a> file and extract the folder to your computer.</p>
+            <h4 class="text-lg font-bold text-gray-900 mb-2">Download & Extract</h4>
+            <p class="text-gray-600 text-sm leading-relaxed">Download the <a href="AnimSnatch.zip" download class="text-brand hover:underline font-semibold">AnimSnatch.zip</a> file and extract the folder to a permanent location on your hard drive.</p>
           </div>
         </div>
         
-        <div class="flex gap-4">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 text-gray-900 font-semibold flex items-center justify-center text-sm">2</div>
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-900 font-bold flex items-center justify-center text-sm">2</div>
           <div>
-            <h4 class="text-base font-semibold text-gray-900 mb-1">Open Extensions Page</h4>
-            <p class="text-gray-500 text-sm">Open Google Chrome and navigate to <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs text-gray-800 font-mono">chrome://extensions</code> in your address bar.</p>
+            <h4 class="text-lg font-bold text-gray-900 mb-2">Open Extensions Page</h4>
+            <p class="text-gray-600 text-sm leading-relaxed">Open Google Chrome, type <code class="bg-white border border-gray-200 px-2 py-1 rounded text-xs text-gray-800 font-mono shadow-sm">chrome://extensions</code> into your address bar, and hit Enter.</p>
           </div>
         </div>
 
-        <div class="flex gap-4">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 text-gray-900 font-semibold flex items-center justify-center text-sm">3</div>
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-900 font-bold flex items-center justify-center text-sm">3</div>
           <div>
-            <h4 class="text-base font-semibold text-gray-900 mb-1">Enable Developer Mode</h4>
-            <p class="text-gray-500 text-sm">Toggle the <strong>Developer mode</strong> switch in the top right corner of the page.</p>
+            <h4 class="text-lg font-bold text-gray-900 mb-2">Enable Developer Mode</h4>
+            <p class="text-gray-600 text-sm leading-relaxed">Toggle the <strong>Developer mode</strong> switch located in the top right corner of the Chrome extensions page.</p>
           </div>
         </div>
 
-        <div class="flex gap-4">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-brand text-white font-semibold flex items-center justify-center text-sm">4</div>
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-900 font-bold flex items-center justify-center text-sm">4</div>
           <div>
-            <h4 class="text-base font-semibold text-gray-900 mb-1">Load Unpacked</h4>
-            <p class="text-gray-500 text-sm">Click the <strong>Load unpacked</strong> button and select the AnimSnatch folder you extracted in step 1. Pin the extension and you're ready to go!</p>
+            <h4 class="text-lg font-bold text-gray-900 mb-2">Load Unpacked</h4>
+            <p class="text-gray-600 text-sm leading-relaxed">Click the <strong>"Load unpacked"</strong> button and select the AnimSnatch folder you extracted in Step 1. Pin the extension to your toolbar, and you're done.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="max-w-4xl mx-auto px-6 py-24 border-t border-gray-200">
+    <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center tracking-tight">Frequently Asked Questions</h2>
+    
+    <div class="space-y-8">
+      <div>
+        <h4 class="text-lg font-bold text-gray-900 mb-2">Does this work with Tailwind CSS?</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">If a website uses Tailwind, AnimSnatch will copy the exact Tailwind utility classes applied to the DOM node because they exist in the `class` attribute. However, if they use purged/custom Tailwind configs, you will also get the raw computed CSS fallback extracted.</p>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold text-gray-900 mb-2">Why isn't this in the Chrome Web Store?</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">AnimSnatch is currently in developer preview and is completely free and open-source. Distributing it as a `.zip` allows us to bypass the Chrome Web Store review times and $5 developer fee while we iterate rapidly on new features like CodePen export.</p>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold text-gray-900 mb-2">Does it extract JavaScript functionality?</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">No. AnimSnatch is strictly a design extraction tool. It extracts the structural DOM (HTML/JSX) and the visual styling (CSS/Animations/Assets). It does not extract attached event listeners or React state logic.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="w-full bg-white py-8 border-t border-gray-200">
-    <div class="max-w-5xl mx-auto px-6 flex items-center justify-between text-sm text-gray-400">
-      <p>&copy; AnimSnatch. Free and open source.</p>
-      <a href="#" class="hover:text-gray-900 transition-colors">Back to top</a>
+  <footer class="w-full bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-sm">
+      <div class="flex items-center gap-2 font-semibold text-gray-200 mb-4 md:mb-0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        AnimSnatch
+      </div>
+      <p>&copy; 2026 AnimSnatch. Free developer tool.</p>
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <a href="#how-it-works" class="hover:text-white transition-colors">How it works</a>
+        <a href="#installation" class="hover:text-white transition-colors">Install</a>
+        <a href="#" class="hover:text-white transition-colors">Back to top</a>
+      </div>
     </div>
   </footer>
 
