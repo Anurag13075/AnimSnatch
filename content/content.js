@@ -151,6 +151,8 @@ function handleElementClick(e) {
     extractComponent(target);
   } else if (currentConfig.mode === 'asset') {
     extractAsset(target);
+  } else if (currentConfig.mode === 'codepen') {
+    extractCodePen(target);
   }
   
   stopPicking();
@@ -309,7 +311,7 @@ function extractAsset(el) {
       const pathname = url.pathname;
       const ext = pathname.split('.').pop();
       if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(ext.toLowerCase())) {
-        filename = \`snatched-image.\${ext}\`;
+        filename = 'snatched-image.' + ext;
       } else {
         filename = 'snatched-image.png'; // fallback
       }
@@ -335,6 +337,83 @@ function extractAsset(el) {
   } else {
     showToast('error', 'No Asset Found', 'Could not find an Image or SVG here.');
   }
+}
+
+// ---------------------------------------------------------
+// Mode 4: CodePen Playground
+// ---------------------------------------------------------
+function extractCodePen(el) {
+  showToast('info', 'Exporting to CodePen', 'Analyzing component and styles...');
+  
+  // Clone the node
+  const clone = el.cloneNode(true);
+  const html = clone.outerHTML;
+
+  // Extract CSS
+  const classes = new Set();
+  const allElements = el.querySelectorAll('*');
+  if (el.className && typeof el.className === 'string') {
+    el.className.split(' ').forEach(c => c && classes.add(c.trim()));
+  }
+  allElements.forEach(child => {
+    if (child.className && typeof child.className === 'string') {
+      child.className.split(' ').forEach(c => c && classes.add(c.trim()));
+    }
+  });
+
+  let cssOutput = `body {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n  background: #f8fafc;\n  font-family: system-ui, sans-serif;\n  padding: 2rem;\n}\n\n`;
+  let foundRules = 0;
+
+  for (let i = 0; i < document.styleSheets.length; i++) {
+    const sheet = document.styleSheets[i];
+    try {
+      const rules = sheet.cssRules || sheet.rules;
+      if (!rules) continue;
+      for (let j = 0; j < rules.length; j++) {
+        const rule = rules[j];
+        if (rule.type === CSSRule.STYLE_RULE) {
+          let matches = false;
+          classes.forEach(c => {
+            if (rule.selectorText && rule.selectorText.includes('.' + c)) matches = true;
+          });
+          if (matches) {
+            cssOutput += rule.cssText + '\n\n';
+            foundRules++;
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore CORS
+    }
+  }
+
+  // Create form to submit to CodePen
+  const data = {
+    title: "AnimSnatch Export",
+    description: "Snatched component from the web.",
+    html: html,
+    css: cssOutput,
+    js: ""
+  };
+
+  const form = document.createElement('form');
+  form.action = 'https://codepen.io/pen/define';
+  form.method = 'POST';
+  form.target = '_blank';
+  form.style.display = 'none';
+
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'data';
+  input.value = JSON.stringify(data);
+
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  showToast('success', 'CodePen Opened', 'Your component is ready!');
+  saveToHistory('CodePen Export', 'Exported to CodePen Playground.');
 }
 
 // ---------------------------------------------------------
